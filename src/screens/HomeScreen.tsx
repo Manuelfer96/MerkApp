@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Image, Modal, FlatList, SafeAreaView } from 'react-native';
+import { View, Text, TouchableOpacity, Image, Modal, FlatList, SafeAreaView, TextInput } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { Home, Search, ShoppingCart, LogOut } from 'lucide-react-native';
-import {useNavigation} from '@react-navigation/native';
-
+import { useNavigation } from '@react-navigation/native';
 
 // Bottom Navigation Component
 const BottomNavigation = ({ activeTab, onTabPress }) => {
@@ -53,22 +52,18 @@ const BottomNavigation = ({ activeTab, onTabPress }) => {
 export default function HomeScreen() {
   const [activeTab, setActiveTab] = useState('Shop');
   const [modalVisible, setModalVisible] = useState(false);
+  const [isSearchVisible, setIsSearchVisible] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const navigation = useNavigation();
 
   const handleTabPress = (tab) => {
     setActiveTab(tab);
-    // Add navigation logic here (e.g., navigate to different screens)
-    switch (tab) {
-      case 'Explore':
-        // Navigation logic for Explore
-        break;
-      case 'Cart':
-        // Navigation logic for Cart
-        break;
-      case 'Logout':
-        // Logout logic
-        break;
-      default:
-        break;
+    if (tab === 'Explore') {
+      // Muestra el campo de búsqueda al presionar "Explore"
+      setIsSearchVisible(true);
+    } else {
+      // Oculta el campo de búsqueda si no está presionado "Explore"
+      setIsSearchVisible(false);
     }
   };
 
@@ -76,7 +71,7 @@ export default function HomeScreen() {
   const stores = [
     { id: '1', name: 'SuperMercado La Ceiba' },
     { id: '2', name: 'SuperMercado Ruco' },
-    { id: '3', name: 'SuperMercado Hiper' },
+    { id: '3', name: 'Tienda de la esquina' },
     { id: '4', name: 'Tienda Doña Mari' },
   ];
 
@@ -97,6 +92,25 @@ export default function HomeScreen() {
               Bienvenido a MerkApp
             </Text>
 
+            {/* Mostrar campo de búsqueda solo si "Explore" está activo */}
+            {isSearchVisible && (
+              <View style={{ width: '80%', marginBottom: 20 }}>
+                <TextInput
+                  placeholder="Buscar..."
+                  value={searchQuery}
+                  onChangeText={setSearchQuery}
+                  style={{
+                    padding: 15,
+                    backgroundColor: '#f0f0f0',
+                    borderRadius: 10,
+                    fontSize: 18,
+                    height: 50, // Aumentando el tamaño de la barra de búsqueda
+                  }}
+                  autoFocus // Activa el enfoque automático al presionar Explore
+                />
+              </View>
+            )}
+
             {/* Botones de acción con degradado horizontal y borde negro */}
             <LinearGradient
               colors={['#139903', '#073f00']} // Degradado horizontal de verde a verde agua
@@ -115,6 +129,7 @@ export default function HomeScreen() {
                   paddingHorizontal: 70,
                   borderRadius: 10,
                 }}
+                onPress={() => navigation.navigate('Productos')} // Navegar a BuyProductsScreen
               >
                 <Text style={{ color: '#fff', fontSize: 25 }}>Ver Productos</Text>
               </TouchableOpacity>

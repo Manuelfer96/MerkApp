@@ -41,7 +41,7 @@ export default function BuyProductsScreen() {
     // Aquí puedes agregar lógica de navegación si es necesario
     switch(tab) {
       case 'Home':
-        // Navegar a la pantalla de inicio
+        navigation.navigate('Home');
         break;
       case 'Cart':
         navigation.navigate('Carrito');
