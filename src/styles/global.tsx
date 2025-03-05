@@ -1,16 +1,18 @@
-import {StyleSheet} from 'react-native';
-import {theme} from './theme';
+import { StyleSheet } from 'react-native';
+import { theme } from './theme';
 
 export const globalStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.background,
     alignItems: 'stretch', // Centrado de contenido en la pantalla
+  },
+  gradientBackground: {
+    flex: 1,
   },
   text: {
     color: theme.colors.text,
     fontSize: theme.fontSize.medium,
-    textAlign: 'left', // Aseguramos que los textos estén alineados a la izquierda
+    textAlign: 'left',
   },
   title: {
     color: theme.colors.text,
@@ -54,7 +56,6 @@ export const globalStyles = StyleSheet.create({
     fontSize: theme.fontSize.medium,
     marginLeft: theme.spacing.medium,
   },
-
   label: {
     fontSize: theme.fontSize.medium,
     color: theme.colors.text,
