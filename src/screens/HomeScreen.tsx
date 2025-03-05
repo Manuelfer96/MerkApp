@@ -4,7 +4,6 @@ import LinearGradient from 'react-native-linear-gradient';
 import { Home, Search, ShoppingCart, LogOut } from 'lucide-react-native';
 import { useNavigation } from '@react-navigation/native';
 
-// Bottom Navigation Component
 const BottomNavigation = ({ activeTab, onTabPress }) => {
   const navigation = useNavigation();
   const NavButton = ({ icon: Icon, label, onPress, isActive }) => (
@@ -48,7 +47,6 @@ const BottomNavigation = ({ activeTab, onTabPress }) => {
   );
 };
 
-// HomeScreen Component with Modal for "Ver Tiendas"
 export default function HomeScreen() {
   const [activeTab, setActiveTab] = useState('Shop');
   const [modalVisible, setModalVisible] = useState(false);
@@ -59,10 +57,8 @@ export default function HomeScreen() {
   const handleTabPress = (tab) => {
     setActiveTab(tab);
     if (tab === 'Explore') {
-      // Muestra el campo de búsqueda al presionar "Explore"
       setIsSearchVisible(true);
     } else {
-      // Oculta el campo de búsqueda si no está presionado "Explore"
       setIsSearchVisible(false);
     }
   };
@@ -79,9 +75,8 @@ export default function HomeScreen() {
     <SafeAreaView style={{ flex: 1 }}>
       <LinearGradient colors={['#bdf2c1', '#e4f8e5']} style={{ flex: 1 }}>
         <View style={{ flex: 1, alignItems: 'center' }}>
-          {/* Imagen de fondo o encabezado */}
           <Image
-            source={require('../assets/images/pasillo.png')} // Ajusta la ruta de la imagen
+            source={require('../assets/images/pasillo.png')}
             style={{ width: '100%', height: 250, resizeMode: 'cover' }}
           />
 
@@ -104,16 +99,16 @@ export default function HomeScreen() {
                     backgroundColor: '#f0f0f0',
                     borderRadius: 10,
                     fontSize: 18,
-                    height: 50, // Aumentando el tamaño de la barra de búsqueda
+                    height: 50,
                   }}
-                  autoFocus // Activa el enfoque automático al presionar Explore
+                  autoFocus 
                 />
               </View>
             )}
 
             {/* Botones de acción con degradado horizontal y borde negro */}
             <LinearGradient
-              colors={['#139903', '#073f00']} // Degradado horizontal de verde a verde agua
+              colors={['#139903', '#073f00']}
               start={{ x: 0.3, y: 0 }} // De izquierda a derecha
               end={{ x: 1, y: 0 }} // De izquierda a derecha
               style={{
@@ -136,7 +131,7 @@ export default function HomeScreen() {
             </LinearGradient>
 
             <LinearGradient
-              colors={['#139903', '#073f00']} // Degradado horizontal de verde a verde agua
+              colors={['#139903', '#073f00']}
               start={{ x: 0.3, y: 0 }} // De izquierda a derecha
               end={{ x: 1, y: 0 }} // De izquierda a derecha
               style={{
@@ -151,7 +146,7 @@ export default function HomeScreen() {
                   paddingHorizontal: 50,
                   borderRadius: 10,
                 }}
-                onPress={() => setModalVisible(true)} // Show modal when pressing "Ver Tiendas"
+                onPress={() => setModalVisible(true)}
               >
                 <Text style={{ color: '#fff', fontSize: 25 }}>Ver Tiendas</Text>
               </TouchableOpacity>
@@ -159,7 +154,7 @@ export default function HomeScreen() {
 
             {/* Logo */}
             <Image
-              source={require('../assets/Logo.png')} // Ajusta la ruta del logo
+              source={require('../assets/Logo.png')}
               style={{ width: 300, height: 100, resizeMode: 'contain', marginTop: 80 }}
             />
           </View>
@@ -207,12 +202,12 @@ export default function HomeScreen() {
                     borderColor: '#e0e0e0',
                   }}
                   onPress={() => {
-                    setModalVisible(false); // Close modal on item press
+                    setModalVisible(false); 
                     alert(`Tienda seleccionada: ${item.name}`);
                   }}
                 >
                   <Image
-                    source={require('../assets/icons/shop.png')} // Icono de tienda (ajustar ruta)
+                    source={require('../assets/icons/shop.png')}
                     style={{ width: 40, height: 40, marginRight: 10 }}
                   />
                   <Text>{item.name}</Text>
