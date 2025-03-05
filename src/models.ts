@@ -3,25 +3,25 @@ export type LoginBody = {
   password: string;
 };
 
-export interface User {
+export type User = {
   id: number;
   authorities: [string];
   email: string;
   userName: string;
 }
 
-export interface RegisterUser {
+export type RegisterUser = {
   password: string;
   authorities: [string];
   email: string;
   userName: string;
 }
 
-export interface LoginResponse extends User {
+export type LoginResponse extends User ={
   token: string;
 }
 
-export interface Product {
+export type Product {
   id: number;
   name: string;
   description: string;
@@ -31,4 +31,4 @@ export interface Product {
   store_id: number;
 }
 
-export interface Store {}
+export type Store {}
