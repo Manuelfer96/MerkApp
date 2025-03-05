@@ -6,7 +6,8 @@
       "eas": {
         "projectId": "382f4f8d-feef-4438-9b6c-36929514311d"
       }
-    }
+    },
+    "packagerOpts": {"url": "http://localhost:8080"}
   },
 
   "name": "Front_end",
@@ -17,5 +18,6 @@
       "projectId": "382f4f8d-feef-4438-9b6c-36929514311d"
     }
   },
-  "owner": "d3lt409"
+  "owner": "d3lt409",
+  "packagerOpts": {"url": "http://localhost:8080"}
 }

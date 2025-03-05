@@ -10,9 +10,10 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
-import {globalStyles} from '../../styles/global';
-import {login} from '../../services/api';
+import {globalStyles} from '../styles/global';
+import {login} from '../services/user';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Toast, ALERT_TYPE, Dialog} from 'react-native-alert-notification';
 
 export default function LoginScreen() {
   const navigation = useNavigation();
@@ -27,14 +28,23 @@ export default function LoginScreen() {
         password,
       });
 
-      if (response.data.token) {
-        await AsyncStorage.setItem('userToken', response.data.token);
-        navigation.navigate(''); // Redirige a la pantalla principal
+      if (response.token) {
+        await AsyncStorage.setItem('userToken', response.token);
+        navigation.navigate('Home'); // Redirige a la pantalla principal
       } else {
-        Alert.alert('Error', 'Credenciales incorrectas');
+        Dialog.show({
+          type: ALERT_TYPE.DANGER,
+          title: response.message,
+          autoClose: 2000,
+        });
       }
     } catch (error) {
-      Alert.alert('Error', 'No se pudo iniciar sesión');
+      console.log('error', error);
+      Dialog.show({
+        type: ALERT_TYPE.DANGER,
+        title: error.message,
+        autoClose: 2000,
+      });
     }
   };
 
@@ -42,7 +52,7 @@ export default function LoginScreen() {
     <SafeAreaView style={globalStyles.container}>
       {/* Imagen superior */}
       <Image
-        source={require('../../assets/images/1.png')}
+        source={require('../assets/images/1.png')}
         style={globalStyles.image}
       />
 
@@ -61,7 +71,12 @@ export default function LoginScreen() {
         <Text style={globalStyles.label}>
           <Text style={globalStyles.bold}>Email</Text>
         </Text>
-        <TextInput placeholder="hey@tuemail.com" style={globalStyles.input} />
+        <TextInput
+          placeholder="hey@tuemail.com"
+          value={email}
+          style={globalStyles.input}
+          onChangeText={value => setEmail(value)}
+        />
 
         {/* Campo de Contraseña */}
         <Text style={globalStyles.label}>
@@ -69,8 +84,10 @@ export default function LoginScreen() {
         </Text>
         <TextInput
           placeholder="Introduce la contraseña"
+          value={password}
           secureTextEntry
           style={globalStyles.input}
+          onChangeText={value => setPassword(value)}
         />
 
         {/* Botón de Inicio de Sesión */}
@@ -90,7 +107,7 @@ export default function LoginScreen() {
 
         {/* Logo */}
         <Image
-          source={require('../../assets/Logo.png')}
+          source={require('../assets/Logo.png')}
           style={globalStyles.logo}
         />
       </View>

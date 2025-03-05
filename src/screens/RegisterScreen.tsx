@@ -6,11 +6,15 @@ import {
   TouchableOpacity,
   Image,
   Alert,
+  GestureResponderEvent,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {globalStyles} from '../styles/global';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
+import {register} from '../services/user';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {ALERT_TYPE, Dialog} from 'react-native-alert-notification';
 
 export default function RegisterScreen() {
   // Estados para capturar los datos del formulario
@@ -28,7 +32,8 @@ export default function RegisterScreen() {
   };
 
   // Función para manejar el registro (aún sin conexión al backend)
-  const handleRegister = () => {
+  const handleRegister = async (e: GestureResponderEvent) => {
+    e.preventDefault();
     if (
       !userName.trim() ||
       !email.trim() ||
@@ -42,15 +47,34 @@ export default function RegisterScreen() {
       Alert.alert('Error', 'Las contraseñas no coinciden');
       return;
     }
-    // Aquí se enviarían los datos al backend
-    Alert.alert(
-      'Registro listo',
-      `Usuario: ${userName}\nEmail: ${email}\nRol: ${authority}\n(Conexión al backend pendiente)`,
-    );
+    try {
+      const response = await register({
+        userName,
+        email,
+        password,
+        authorities: [authority],
+      });
+      console.log(response);
+      if (response.token) {
+        await AsyncStorage.setItem('userToken', response.token);
+        Dialog.show({
+          type: ALERT_TYPE.SUCCESS,
+          title: 'Bienvenido ' + userName,
+          autoClose: 2000,
+        });
+        navigation.navigate('Home'); // Redirige a la pantalla principal
+      } else {
+        Dialog.show({
+          type: ALERT_TYPE.DANGER,
+          title: response.message,
+          autoClose: 2000,
+        });
+      }
+    } catch (error) {}
   };
 
   return (
-    <SafeAreaView style={globalStyles.container} className=" my-auto">
+    <SafeAreaView style={globalStyles.container} className="my-auto ">
       <ScrollView>
         {/* Imagen superior (ajusta la ruta según corresponda) */}
         <Image
@@ -61,7 +85,7 @@ export default function RegisterScreen() {
         {/* Contenedor interno */}
         <View
           style={globalStyles.innerContainer}
-          className="flex mx-auto my-auto h-full w-full ">
+          className="flex w-full h-full mx-auto my-auto ">
           {/* Título y subtítulo */}
           <Text style={globalStyles.title}>Registro</Text>
           <Text style={globalStyles.subtitle}>

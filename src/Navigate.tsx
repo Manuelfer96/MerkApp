@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import LoginScreen from './screens/login/LoginScreen';
+import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import RegisterProductScreen from './screens/Register_product';
 import CartScreen from './screens/carrito';
@@ -33,13 +33,15 @@ const Navigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Login"
+        initialRouteName="Carrito"
         screenOptions={{headerShown: false}}>
         {isLoggedIn ? (
           <>
             <Stack.Screen name="R_Product" component={RegisterProductScreen} />
             <Stack.Screen name="Carrito" component={CartScreen} />
-            <Stack.Screen name="" component={HomeScreen} />
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Register" component={RegisterScreen} />
           </>
         ) : (
           <>
