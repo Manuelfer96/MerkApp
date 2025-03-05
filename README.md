@@ -22,7 +22,6 @@ Asegúrate de tener instalados los siguientes programas:
 
    ```bash
    git clone https://github.com/SrRobls/MerkApp-Project.git
-   cd Front_end
    ```
 
 2. **Instalar dependencias:**
@@ -53,10 +52,10 @@ Android
 
 ```sh
 # Using npm
-npx run android
+npx expo run:android
 
 # OR using Yarn
-yarn android
+yarn expo run:android
 ```
 
 Ios
