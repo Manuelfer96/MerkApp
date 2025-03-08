@@ -7,6 +7,7 @@ import RegisterScreen from './screens/RegisterScreen';
 import RegisterProductScreen from './screens/Register_product';
 import CartScreen from './screens/carrito';
 import HomeScreen from './screens/HomeScreen';
+import BuyProductsScreen from './screens/buy_products';
 
 const Stack = createStackNavigator();
 
@@ -33,7 +34,7 @@ const Navigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Carrito"
+        initialRouteName="Login"
         screenOptions={{headerShown: false}}>
         {isLoggedIn ? (
           <>
@@ -42,6 +43,8 @@ const Navigation = () => {
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Register" component={RegisterScreen} />
+            <Stack.Screen name="Productos" component={BuyProductsScreen} />
+
           </>
         ) : (
           <>

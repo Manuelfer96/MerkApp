@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -8,13 +8,13 @@ import {
   Alert,
   GestureResponderEvent,
 } from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {globalStyles} from '../styles/global';
-import {ScrollView} from 'react-native-gesture-handler';
-import {useNavigation} from '@react-navigation/native';
-import {register} from '../services/user';
+import { globalStyles } from '../styles/global';
+import { ScrollView } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
+import { register } from '../services/user';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {ALERT_TYPE, Dialog} from 'react-native-alert-notification';
+import { ALERT_TYPE, Dialog } from 'react-native-alert-notification';
+import LinearGradient from 'react-native-linear-gradient'; // Importa LinearGradient
 
 export default function RegisterScreen() {
   // Estados para capturar los datos del formulario
@@ -74,7 +74,11 @@ export default function RegisterScreen() {
   };
 
   return (
-    <SafeAreaView style={globalStyles.container} className="my-auto ">
+    // Agregamos LinearGradient aquí
+    <LinearGradient 
+      colors={['#b9f1bd', '#e4f8e5']}  // Colores del degradado (verde claro)
+      style={globalStyles.container}  // Usamos el contenedor de globalStyles para todo el layout
+    >
       <ScrollView>
         {/* Imagen superior (ajusta la ruta según corresponda) */}
         <Image
@@ -85,7 +89,8 @@ export default function RegisterScreen() {
         {/* Contenedor interno */}
         <View
           style={globalStyles.innerContainer}
-          className="flex w-full h-full mx-auto my-auto ">
+          className="flex w-full h-full mx-auto my-auto "
+        >
           {/* Título y subtítulo */}
           <Text style={globalStyles.title}>Registro</Text>
           <Text style={globalStyles.subtitle}>
@@ -144,15 +149,17 @@ export default function RegisterScreen() {
             <Text
               style={globalStyles.bold}
               className="hover:animate-pulse"
-              onPress={() => navigation.navigate('Login')}>
+              onPress={() => navigation.navigate('Login')}
+            >
               Ingresa
             </Text>
           </Text>
 
           {/* Botón para alternar el rol */}
           <TouchableOpacity
-            style={[globalStyles.button, {marginVertical: 5}]}
-            onPress={toggleAuthority}>
+            style={[globalStyles.button, { marginVertical: 5 }]}
+            onPress={toggleAuthority}
+          >
             <Text style={globalStyles.buttonText}>
               Rol: {authority === 'ROLE_USER' ? 'Comprador' : 'Vendedor'}
             </Text>
@@ -161,7 +168,8 @@ export default function RegisterScreen() {
           {/* Botón de Registro */}
           <TouchableOpacity
             style={globalStyles.button}
-            onPress={handleRegister}>
+            onPress={handleRegister}
+          >
             <Text style={globalStyles.buttonText}>Registrarse</Text>
           </TouchableOpacity>
 
@@ -172,6 +180,6 @@ export default function RegisterScreen() {
           />
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </LinearGradient>
   );
 }

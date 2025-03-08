@@ -1,19 +1,11 @@
-import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Image,
-  Alert,
-  GestureResponderEvent,
-} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {useNavigation} from '@react-navigation/native';
-import {globalStyles} from '../styles/global';
-import {login} from '../services/user';
+import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, Image, GestureResponderEvent } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { globalStyles } from '../styles/global';
+import { login } from '../services/user';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Toast, ALERT_TYPE, Dialog} from 'react-native-alert-notification';
+import { Toast, ALERT_TYPE, Dialog } from 'react-native-alert-notification';
+import LinearGradient from 'react-native-linear-gradient'; // Importa LinearGradient
 
 export default function LoginScreen() {
   const navigation = useNavigation();
@@ -49,14 +41,18 @@ export default function LoginScreen() {
   };
 
   return (
-    <SafeAreaView style={globalStyles.container}>
+    // Agregamos LinearGradient aquí
+    <LinearGradient 
+      colors={['#bdf2c1', '#e4f8e5']}  // Colores del degradado (verde claro)
+      style={globalStyles.container}  // Usamos el contenedor de globalStyles para todo el layout
+    >
       {/* Imagen superior */}
       <Image
         source={require('../assets/images/1.png')}
         style={globalStyles.image}
       />
 
-      {/* Fondo con degradado */}
+      {/* Fondo con contenido */}
       <View style={globalStyles.innerContainer}>
         {/* Título */}
         <Text style={globalStyles.title}>Inicio de sesión</Text>
@@ -100,7 +96,8 @@ export default function LoginScreen() {
           ¿No tienes cuenta?{' '}
           <Text
             style={globalStyles.bold}
-            onPress={() => navigation.navigate('Register')}>
+            onPress={() => navigation.navigate('Register')}
+          >
             Regístrate
           </Text>
         </Text>
@@ -111,6 +108,6 @@ export default function LoginScreen() {
           style={globalStyles.logo}
         />
       </View>
-    </SafeAreaView>
+    </LinearGradient>
   );
 }
